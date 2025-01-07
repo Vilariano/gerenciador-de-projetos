@@ -3,6 +3,7 @@ import shutil
 import zipfile
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
+from tkinter import PhotoImage
 
 def determinar_caminho_zip(tipo_projeto, linguagem_projeto):
     caminhos = {
@@ -84,11 +85,26 @@ def criar_interface():
     # Configuração da janela
     janela = tk.Tk()
     janela.title("Quality Software Naldo")
-    janela.geometry("500x500")
+    janela.geometry("500x600")
     janela.configure(bg="#000000")
     
     fonte_padrao = ("Arial", 12)
     
+    # Adicionando logo e título na mesma linha
+    frame_header = tk.Frame(janela, bg="#000000")
+    frame_header.pack(fill="x", pady=0)
+    
+    # Logo (ajustando para preencher a parte superior)
+    try:
+        logo = PhotoImage(file="./data/linkedin_banner_image_2.png")  # Altere para o caminho da sua logo
+        logo = logo.subsample(4, 4)  # Ajuste da logo para o tamanho original
+        label_logo = tk.Label(frame_header, image=logo, bg="#000000")
+        label_logo.image = logo  # Mantém uma referência da imagem
+        label_logo.pack(fill="x", padx=1, pady=1)  # Faz logo preencher a parte superior
+    except Exception as e:
+        print(f"Erro ao carregar a logo: {e}")
+    
+    # Título abaixo da logo
     tk.Label(janela, text="Assistente de Extração de Arquivo ZIP", font=fonte_padrao, bg="#000000", fg="#FFFFFF").pack(pady=10)
     
     # Tipo de projeto
